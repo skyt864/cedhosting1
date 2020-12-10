@@ -95,9 +95,9 @@ elseif (!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!
 // elseif (!preg_match("/^([a-zA-Z0-9]+\s?)*$/", $username)) {
 // 	 echo '<script>alert("more than one space in username")</script>';
 // }
-elseif (preg_match("/^@*#*!*&*/", $answer)) {
-	echo '<script>alert("all special characters not allowed")</script>';
-}
+// elseif (preg_match("/^@*#*!*&*/", $answer)) {
+// 	echo '<script>alert("all special characters not allowed")</script>';
+// }
 else
 {
   $sql=$User->Register($email,$username,$mobile,$password,$repassword,$question, $answer,$Dbcon->conn);

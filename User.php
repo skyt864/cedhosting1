@@ -9,13 +9,23 @@ Class User {
 function Register($email,$username,$mobile,$password,$repassword,$question, $answer,$conn){
 
 // echo "aaaa";
-
+$sql1="SELECT * FROM `tbl_user` WHERE `email` ='$email' OR `mobile`=$mobile";
+$result=$conn->query($sql1);
+if($result->num_rows > 0)
+{
+	echo '<script>alert("Record already Exists")</script>';
+return 0;
+	}
 
 	$sql= "INSERT INTO `tbl_user` (`email`,`name`, `mobile`, `email_approved`,`phone_approved`,
 	             `active`,`is_admin`, `sign_up_date`,`password`,`security_question`,`security_answer`) VALUES ('$email','$username','$mobile',0,0,0,0, NOW(), '$password','$question','$answer')";
-	             $result1 = $conn->query($sql); 
+				 $result1 = $conn->query($sql); 
+				 
 	             // header('location:account.php');
-	         
+				 $_SESSION['user']=array('email'=>$email,
+				 'name'=>$name,
+				 'mobile'=>$mobile,
+			 );
 	        
 	         return $result1;
 
@@ -28,7 +38,7 @@ function login($username, $password,$conn){
 		
 		
 	    $result=$conn->query($sql);
-	    print_r($result);
+	    // print_r($result);
 	   
 	   
 		 $row = $result -> fetch_assoc();	
@@ -36,17 +46,26 @@ function login($username, $password,$conn){
 	        $_SESSION['LOGGEDIN']= true;
 
 			$_SESSION['EMAIL'] = $username;
-
+            // echo $_SESSION['EMAIL'];
 			// $_SESSION['id']=$row['user_id'];
-			$_SESSION['myblock']=$row['email_approved'];
-			
+		 $_SESSION['active']=$row['active'];
+			// echo $row['active'];
 			$_SESSION['password']=$row['password'];
+			$_SESSION['isadmin']=$row['is_admin'];
 		}
 		
-     if($username==$_SESSION['EMAIL']&&$password==$_SESSION['password']&&$_SESSION['myblock']=='0')
+     if($username==$_SESSION['EMAIL']&&$password==$_SESSION['password']&&$_SESSION['active']=='1'&&$_SESSION['isadmin']=='0')
      {
 			$rtn ="login success";
-			echo '<script>alert("successful login !! ")</script>'; 
+			echo '<script>alert("successful login !! "); 
+			window.location.href= "index.php";</script>';
+
+		}
+	elseif($username==$_SESSION['EMAIL']&&$password==$_SESSION['password']&&$_SESSION['active']=='1'&&$_SESSION['isadmin']=='1')
+     {
+			$rtn ="login success";
+			echo '<script>alert("successful login !! "); 
+			window.location.href= "admin/index.php";</script>';
 
 		}
 		else
@@ -57,6 +76,19 @@ function login($username, $password,$conn){
 		}
 		return $rtn;
 
+	}
+	function myotp($email,$conn)
+	{
+		$sql= "UPDATE `tbl_user` SET `active`='1',`email_approved`='1'  WHERE `email`='$email'";
+		$result=$conn->query($sql);
+		return 1;
+	}
+	function myotpp($number,$conn)
+	{
+
+		$sql= "UPDATE `tbl_user` SET `active`='1',`phone_approved`='1'  WHERE `mobile`='$number'";
+		$result=$conn->query($sql);
+		return 1;
 	}
 
 }

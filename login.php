@@ -5,7 +5,8 @@ include ('Dbconnection.php');
  if(isset($_POST['submit'])){
  	$username =$_POST['email'];
  	echo $username;
- 	$password = $_POST['password'];
+	 $password = $_POST['password'];
+	 echo $password;
  	$User=new User();
  	$Dbcon=new Dbconnection();
  
