@@ -1,3 +1,7 @@
+<?php include('User.php');
+       include('Dbconnection.php');
+?>
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -93,11 +97,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li class="dropdown">
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hosting<i class="caret"></i></a>
 									<ul class="dropdown-menu">
-										<li><a href="linuxhosting.php">Linux hosting</a></li>
+									<?php 
+									 $User=new User();
+									 $Dbcon=new Dbconnection();
+									 $sql=$User->navHost($Dbcon->conn);
+
+									 foreach($sql as $key=>$value)
+									//   echo $value['prod_name'];
+									{?>
+							             		
+										<li><a href=<?php $value['link'];?>><?php echo $value['prod_name'];?></li>
+										
+									<?php } ?>
+									
+									</ul>
+									
+										<!-- <li><a href="linuxhosting.php">Linux hosting</a></li>
 										<li><a href="wordpresshosting.php">WordPress Hosting</a></li>
 										<li><a href="windowshosting.php">Windows Hosting</a></li>
-										<li><a href="cmshosting.php">CMS Hosting</a></li>
-									</ul>			
+										<li><a href="cmshosting.php">CMS Hosting</a></li> -->
+												
 								</li>
 								<li><a href="pricing.php">Pricing</a></li>
 

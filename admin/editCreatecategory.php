@@ -1,54 +1,74 @@
-<?php require_once('header.php');
+<?php include('header.php');
 include('/opt/lampp/htdocs/training/cedhosting/web/Dbconnection.php');
 include('/opt/lampp/htdocs/training/cedhosting/web/User.php');
-if(isset($_POST['submit']))
+
+$id = isset($_GET['id'])?$_GET['id']:'';
+$User=new User();
+$Dbcon=new Dbconnection();
+// echo $id;
+$sql=$User->editCategory($id,$Dbcon->conn);
+// print_r($sql);
+foreach($sql as $key)
 {
-    $name=$_POST['name'];
-  // $pid=$_POST['pid'];
-  $plink=$_POST['plink'];
-//   $avail=$_POST['avail'];
-  $User=new User();
- 	$Dbcon=new Dbconnection();
- 
- 	$sql=$User->Category($name,$plink,$Dbcon->conn);
- 	// echo $sql;
-  
-}
-if(isset($_GET['id']))
-{
-  $id=$_GET['id'];
-  $User=new User();
-  $Dbcon=new Dbconnection();
-  
-  $sql=$User->deleteCategory($id,$Dbcon->conn);
-  
-  echo "deleted";
+$productname=$key['prod_name'];
+$prolink=$key['link'];
+
+// echo $productname;
+// echo $prolink;
 }
 ?>
+<!-- if(isset($_POST['update']))
+{
+$id=$_POST['id'];
+$productname=$key['prod_name'];
+$prolink=$key['link'];
+} -->
 
+
+
+
+<?php
+if(isset($_POST['update']))
+{
+   $id=$_POST['id'];
+   echo $id;
+    $User=new User();
+    $Dbcon=new Dbconnection();
+    $name=$_POST['name'];
+    echo $name;
+    $link=$_POST['plink'];
+    echo $link;
+    $sql=$User->updateCategory($id,$name,$link,$Dbcon->conn);
+    if($sql)
+    {
+        echo "done";
+    echo '<script>alert("update") </script>';
+ echo "<script>window.location.href='Createcategory.php';</script>";
+    }
+}
+
+
+?>
 <div class="container">
   <h2>Create Category</h2>
-  <form action="Createcategory.php" method="Post">
+  <form action="editCreatecategory.php" method="Post">
     <div class="form-group">
       
       <input type="text" class="form-control" id="nam" placeholder="Hosting" name="nam" disabled>
     </div>
     <div class="form-group">
       
-      <input type="text" class="form-control" id="pid" placeholder="Category Name" name="name">
+      <input type="text" class="form-control" id="pid" placeholder="Category Name" name="name" value=<?php echo $productname; ?>>
     </div>
     <div class="form-group">
  
-      <input type="text" class="form-control" id="plink" placeholder="Enter Product Link" name="plink">
+      <input type="text" class="form-control" id="plink" placeholder="Enter Product Link" name="plink" value=<?php echo $prolink ?>>
     </div>
-    
-    <button type="submit" name="submit" value="Create Category" class="btn btn-default">Submit</button>
+    <input type="hidden" name="id" value="<?php echo $_GET['id'];?>">
+    <button type="submit" name="update" value="update" class="btn btn-default">Update</button>
   </form>
     </br>
 </div>
- 
-  
-
 <div class="container-fluid mt--10">
       <div class="row">
         <div class="col">
@@ -165,12 +185,8 @@ if(isset($_GET['id']))
                       </div>
                     </td> -->
                   </tr>
-                 
-                    
-                 
-                
-              
-<?php }?>
+                  <?php }?>
 </tbody>
 </table>
             </div>
+                    
