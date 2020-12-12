@@ -146,5 +146,48 @@ function categorytable($name,$plink,$conn)
 		
 		return $result;
 	}
+	function myproducts($category,$name,$url,$a,$price,$annualprice,$sku,$conn)
+	{
+// echo "aaaa";
+	 	$sql= "INSERT INTO `tbl_product`(`prod_parent_id`, `prod_name`, `link`, `prod_available`, `prod_launch_date`) VALUES ( '$category', '$name', '$url', '1', NOW())";
+		 $result=$conn->query($sql);
+		   $lastid=$conn->insert_id;
+		//  echo"bbbb";
+		  if($result=true)
+		  {
+	//  echo "cccc";
+	
+		$sql1="INSERT INTO `tbl_product_description` ( `prod_id`, `description`, `mon_price`, `annual_price`, `sku`) VALUES ('$lastid', '$a', '$price', '$annualprice', '$sku')";
+		$result=$conn->query($sql1);
+		  }
+		  else{
+			  echo'<script>alert("not inserted")</script>';
+        return $result;
+		  }
+	
 }
+    function tableview($conn)
+{
+$row=array();
+       $sql3= "SELECT * FROM `tbl_product`
+                  INNER JOIN `tbl_product_description`
+              ON `tbl_product`.id=`tbl_product_description`.prod_id";
+                          
+		   $result=$conn->query($sql3);
+		   while($data=mysqli_fetch_assoc($result))
+		   {
+			   $row[]=$data;
+		   }
+	 
+	 
+		   return $row;
+                 
+                  
+                
+                  
+                }
+                
+}
+
+
 ?>

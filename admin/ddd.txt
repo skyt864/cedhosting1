@@ -1,0 +1,9 @@
+<select name="parentid" id="parentid" class="form-control">
+                  <option value="0" selected>Select product Category</option>
+                  <?php
+                 foreach($arr as $key=>$value){
+                    if($value['id']!=1)
+                    {
+                    echo "<option value='".$value['id']."'>".$value['prod_name']."</option>";
+                    }
+                   }
