@@ -114,7 +114,7 @@ if(isset($_GET['id']))
                     </td>
                     <td>
                       <div class="avatar-group">
-                        <?php echo $key['link'] ?>
+                        <?php echo $key['html'] ?>
                        
                       </div>
                     </td>
@@ -174,3 +174,34 @@ if(isset($_GET['id']))
 </tbody>
 </table>
             </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script>
+$(document).ready(function(){
+  $("input").blur(function(){
+    if("name")
+    alert("This input field has lost its focus.");
+  });
+});
+
+</script> -->
+<!-- 
+  
+ -->
+ <script>
+ $(document).ready(function(){
+   var c=1;
+ $('#pid').on('blur',function(){
+   var input=$(this);
+   var re = /^\S+$/;
+   var k=re.test(input.val());
+   if(k)
+   {
+     alert("correct");
+   }
+   else
+   {
+     alert("incorrect");
+   }
+ });
+});
+ </script>

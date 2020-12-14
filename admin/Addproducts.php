@@ -5,6 +5,7 @@ include('/opt/lampp/htdocs/training/cedhosting/web/User.php');
 <?php
 if(isset($_POST['submit']))
 {
+  
   $category=$_POST['parentid'];
   // echo $category;
   $name=$_POST['name'];
@@ -39,6 +40,16 @@ if(isset($_POST['submit']))
   // print_r($a);
   $sql1=$User->myproducts($category,$name,$url,json_encode($a),$price,$annualprice,$sku,$Dbcon->conn);
 // echo "inserted";
+}
+if(isset($_GET['id']))
+{
+  $id=$_GET['id'];
+  $User=new User();
+  $Dbcon=new Dbconnection();
+  
+  $sql=$User->deleteproducts($id,$Dbcon->conn);
+  
+  echo "deleted";
 }
 ?>
     
@@ -110,6 +121,10 @@ if(isset($_POST['submit']))
                       <div class="form-group">
                         <label class="form-control-label" for="input-email">Enter Product Name</label>
                         <input type="text" id="input-email" class="form-control" placeholder="Enter Product Name" name="name">
+                        <div class="invalid-feedback">
+                          invalid
+                        </div>
+                        <!-- <p id="a"></p> -->
                       </div>
                     </div>
                   </div>
@@ -118,6 +133,9 @@ if(isset($_POST['submit']))
                       <div class="form-group">
                         <label class="form-control-label" for="input-first-name">Page url</label>
                         <input type="text" id="input-first-name" class="form-control" placeholder="url" name="url">
+                        <div class="invalid-feedback">
+                          invalid
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
@@ -136,7 +154,10 @@ if(isset($_POST['submit']))
                     <div class="col-md-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Enter Monthly Price</label>
-                        <input id="input-address" class="form-control" placeholder="Enter Monthly Price" type="text" name="price">
+                        <input id="input-address" class="form-control" placeholder="Enter Monthly Price" type="text" name="price" max-length="15">
+                        <div class="invalid-feedback">
+                          invalid
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -145,12 +166,18 @@ if(isset($_POST['submit']))
                       <div class="form-group">
                         <label class="form-control-label" for="input-city">Enter Annual Price</label>
                         <input type="text" id="input-city" class="form-control" placeholder="Enter Annual Price" name="annualprice">
+                        <div class="invalid-feedback">
+                          invalid
+                        </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-country">SKU</label>
                         <input type="text" id="input-country" class="form-control" placeholder="SKU" name="sku">
+                        <div class="invalid-feedback">
+                          invalid
+                        </div>
                       </div>
                     </div>
       
@@ -195,245 +222,107 @@ if(isset($_POST['submit']))
                     </div>
                   </div>
                       
-                  <button type="submit" name="submit" value="add Product" class="btn btn-default">Submit</button>
+                  <button type="submit" name="submit" value="submit" class="btn btn-default">Submit</button>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      
+
+<script>
+$(document).ready(function(){
+    $('#input-email').on('blur',function(){
+      var input=$(this);
+      var re=/^[A-Za-z]+$/;
+      
+      
+      var k=re.test(input.val());
+      if(k)
+      {
+
+        // alert("correct");
+        $('#input-email').addClass('is-valid');
+        $('#input-email').removeClass('is-invalid');
+      }
+      else{
+        // alert("incorrect");
+        $('#input-email').addClass('is-invalid');
+        $('#input-email').removeClass('is-valid');
+        
+      }
+    });
+});
+$(document).ready(function(){
+    $('#input-address').on('blur',function(){
+      var input=$(this);
+      var re=/^\s*-?[0-9]{1,15}\s*$/;
+      
+      
+      var k=re.test(input.val());
+      if(k)
+      {
+
+        // alert("correct");
+        $('#input-address').addClass('is-valid');
+        $('#input-address').removeClass('is-invalid');
+      }
+      else{
+        // alert("incorrect");
+        $('#input-address').addClass('is-invalid');
+        $('#input-address').removeClass('is-valid');
+        
+      }
+    });
+});
+$(document).ready(function(){
+    $('#input-address').on('blur',function(){
+      var input=$(this);
+      var re=/^\s*-?[0-9]{1,15}\s*$/;
+      
+      
+      var k=re.test(input.val());
+      if(k)
+      {
+
+        // alert("correct");
+        $('#input-address').addClass('is-valid');
+        $('#input-address').removeClass('is-invalid');
+      }
+      else{
+        // alert("incorrect");
+        $('#input-address').addClass('is-invalid');
+        $('#input-address').removeClass('is-valid');
+        
+      }
+    });
+});
+$(document).ready(function(){
+    $('#input-city').on('blur',function(){
+      var input=$(this);
+      var re=/^\s*-?[0-9]{1,15}\s*$/;
+      
+      
+      var k=re.test(input.val());
+      if(k)
+      {
+
+        // alert("correct");
+        $('#input-city').addClass('is-valid');
+        $('#input-city').removeClass('is-invalid');
+      }
+      else{
+        // alert("incorrect");
+        $('#input-city').addClass('is-invalid');
+        $('#input-city').removeClass('is-valid');
+        
+      }
+    });
+});
+  
+    
+ </script>
  
   
 
-<div class="container-fluid mt--10">
-      <div class="row">
-        <div class="col">
-          <div class="card">
-            <!-- Card header -->
-            <div class="card-header border-0">
-              <h3 class="mb-0">Product table</h3>
-            </div>
-            <!-- Light table -->
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th scope="col" class="sort" data-sort="id">Product Name</th>
-                    <th scope="col" class="sort" data-sort="budget">Product Parent Name</th>
-                    <th scope="col" class="sort" data-sort="status">Link</th>
-                    <th scope="col">Link</th>
-                    <th scope="col" class="sort" data-sort="completion">Product Availability</th>
-                    <th scope="col" class="sort" data-sort="completion">Product Launch Date</th>
-                    <th scope="col" class="sort" data-sort="completion">Webspaces</th>
-                    <th scope="col" class="sort" data-sort="completion">Bandwidth</th>
-                    <th scope="col" class="sort" data-sort="completion">Language support</th>
-                    <th scope="col" class="sort" data-sort="completion">Free Domain</th>
-                    <th scope="col" class="sort" data-sort="completion">Annual Price</th>
-                    <th scope="col" class="sort" data-sort="completion">SKU</th>
-                    <th scope="col" class="sort" data-sort="completion">Bandwidth</th>
-                    <th scope="col"class="sort" data-sort="completion">Action</th>
-                  </tr>
-                </thead>
-                <tbody class="list">
-                 
-
-                <?php 
-
-                if(isset($_POST['submit']))
-              {
-                
-                $User=new User();
-                $Dbcon=new Dbconnection();
-                $sql1=$User->tableview($Dbcon->conn);
-                // print_r($sql1['annual_price']);
-                foreach($sql1 as $key)
-                // echo $key['annual_price'];
-                {?>
-
-
-
-
-
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                       
-                        <div class="media-body">
-                          <span class="name mb-0 text-sm"><?php echo $key['id']; ?>
-                        </span>
-                        </div>
-                      </div>
-                    </th>
-                   
-                    <td>
-                      <span class="badge badge-dot mr-4">
-                        <i class="bg-warning"></i>
-                        <span class="status"><?php echo $key['prod_name']; ?></span>
-                      </span>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                        <?php echo $key['link']; ?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-
-                        <?php $key['prod_available'];
-                         if($key['prod_available']=='1')
-                         {
-                           echo "IS AVAILABLE";
-                         }
-                         else {
-                           echo "not available";
-                         }
-                        
-                        
-                        ?>
-                        </span>
-                        <div>
-                          
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                        <?php echo $key['prod_launch_date'] ;?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                        <?php echo $key['mon_price']; ?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                        <?php echo $key['annual_price'] ?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                        <?php echo $key['sku'] ?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="avatar-group">
-                     <?php echo $key['link'] ?>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-                     <?php   $b=json_decode ($key['description']);
-			                        $a=$b->A;
-                              echo $a;
-                       ?>
-                      </div>
-                    </td> 
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-                     <?php   $b=json_decode ($key['description']);
-			                        $bb=$b->B;
-                              echo $bb;
-                       ?>
-                      </div>
-                    </td> 
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-                     <?php   $b=json_decode ($key['description']);
-			                        $c=$b->C;
-                              echo $c;
-                       ?>
-                      </div>
-                    </td> 
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-                     <?php   $b=json_decode ($key['description']);
-			                        $d=$b->D;
-                              echo $d;
-                       ?>
-                      </div>
-                    </td> 
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="completion mr-2">
-                     <?php   $b=json_decode ($key['description']);
-			                        $e=$b->E;
-                              echo $e;
-                       ?>
-                      </div>
-                    </td> 
-                    
-                 
-                    
-                 
-                
-              
-<?php }
-              }
-?>
-</tbody>
-</table>
-            </div>
-               
-
-
-
-
-
-                 
-
-
-      <!-- Footer -->
-      <footer class="footer pt-0">
-        <div class="row align-items-center justify-content-lg-between">
-          <div class="col-lg-6">
-            <div class="copyright text-center  text-lg-left  text-muted">
-              &copy; 2020 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-
-        
-      </footer>
-    </div>
-  </div>
-  <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-  <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
-</body>
-
-</html>

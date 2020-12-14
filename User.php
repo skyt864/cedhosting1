@@ -149,7 +149,7 @@ function categorytable($name,$plink,$conn)
 	function myproducts($category,$name,$url,$a,$price,$annualprice,$sku,$conn)
 	{
 // echo "aaaa";
-	 	$sql= "INSERT INTO `tbl_product`(`prod_parent_id`, `prod_name`, `link`, `prod_available`, `prod_launch_date`) VALUES ( '$category', '$name', '$url', '1', NOW())";
+	 	$sql= "INSERT INTO `tbl_product`(`prod_parent_id`, `prod_name`, `html`, `prod_available`, `prod_launch_date`) VALUES ( '$category', '$name', '$url', '1', NOW())";
 		 $result=$conn->query($sql);
 		   $lastid=$conn->insert_id;
 		//  echo"bbbb";
@@ -185,8 +185,103 @@ $row=array();
                   
                 
                   
-                }
+				}
+				function deleteproducts($id,$conn)
+				{
+                      
+					$sql3="SELECT `prod_id` FROM `tbl_product_description` WHERE `id`='$id'";
+					$result=$conn->query($sql3);
+					while($data=mysqli_fetch_assoc($result))
+					{
+						$row=$data['prod_id'];
+						// echo $row;  //171
+					}
+					// echo $row;
+					$sql1="DELETE  FROM `tbl_product_description` WHERE `id`= '$id'";
+		           $result=$conn->query($sql1);
+				   if($result=true)
+				   {
+					   $sql2="DELETE  FROM `tbl_product` WHERE `id`= '$row'";
+					   $result2=$conn->query($sql2);
+					   return $result2;
+				   }
+				   else
+				   {
+					   echo '<script>alert("product does exists anymore")</script>';
+				   }
+				}
+				function editproducts($id,$conn)
+				{
+					$sql3="SELECT `prod_id` FROM `tbl_product_description` WHERE `id`='$id'";
+					$result=$conn->query($sql3);
+					while($data=mysqli_fetch_assoc($result))
+					{
+						$row=$data['prod_id'];
+						 $a=$row;
+						 
+						// echo $row;  //171
+					}
+					// echo $a;
+					
+					// echo $row;
+                $row=array();
+					$sql="SELECT * FROM `tbl_product`
+					INNER JOIN `tbl_product_description`
+				ON `tbl_product`.id=`tbl_product_description`.prod_id WHERE `tbl_product`.id= '$a' AND `tbl_product_description`.id='$id'";
+				$result=$conn->query($sql);
+				while($data=mysqli_fetch_assoc($result))
+		   {
+			   $row[]=$data;
+		   }
+	 
+	 return $row;
+			}
+			//UPDATE table_name
+			//SET column1 = value1, column2 = value2, ...
+			//WHERE condition;
+			function myupdatedproducts($id,$valuee,$name,$url,$a,$price,$annualprice,$sku,$conn)
+			{
+				$sql="SELECT `prod_id` FROM `tbl_product_description` WHERE `id`='$id'";
+				$result=$conn->query($sql);
+				while($data=mysqli_fetch_assoc($result))
+		   {
+			   $row[]=$data;
+			   $b=$data['prod_id'];
+		   }
+		   echo $b;
+		  $sql4="UPDATE `tbl_product` SET `prod_name`='$name',`html`='$url',`prod_parent_id`='$valuee' WHERE `id`='$b'";
+		  $result=$conn->query($sql4);
+		  if($result=true)
+		  {
+			  $sql5="UPDATE `tbl_product_description` SET `description`='$a',`mon_price`='$price',`annual_price`='$annualprice',`sku`='$sku', WHERE `id`='$id'";
+			  $result=$conn->query($sql5);
+			  echo "updated";
+		  }
+		  return $result;
+			}
+
+			function parentname($category,$conn)
+			{
+				$row=array();
+				$sql="SELECT `prod_parent_id` FROM `tbl_product` WHERE `prod_name` ='$category'";
+				$result=$conn->query($sql);
+				while($data=mysqli_fetch_assoc($result))
+				{
+					$row[]=$data;
+					$b=$data['prod_parent_id'];
+					
+				}
+				$sql4="SELECT `prod_name` FROM `tbl_product` WHERE `id`='$b'";
+				$result=$conn->query($sql4);
+				while($data=mysqli_fetch_assoc($result))
+				{
+					$row[]=$data;
+					$c=$data['prod_name'];
+					// echo $c;
+			return $c;
+			}
                 
+}
 }
 
 
