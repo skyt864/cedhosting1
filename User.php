@@ -2,9 +2,9 @@
 <?php
 
 
-// if(!(session_id())) {
-// 	session_start();
-//   }
+
+ 	session_start();
+  
 
 Class User {
 
@@ -282,6 +282,19 @@ $row=array();
 			}
                 
 }
+    function showw($id,$conn)
+   {
+	$row=array();
+  $sql="SELECT `html` FROM `tbl_product` WHERE `id`='$id'";
+  $result=$conn->query($sql);
+  while($data=mysqli_fetch_assoc($result))
+  {
+	  $row[]=$data;
+	  $b=$data['html'];
+	  return $b;
+
+  }
+   }
 }
 
 

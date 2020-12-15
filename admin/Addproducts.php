@@ -196,8 +196,8 @@ if(isset($_GET['id']))
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">Bandwidth</label>
-                        <input type="text" id="input-email" class="form-control" placeholder="Bandwidth" name="bandwidth">
+                        <label class="form-control-label" for="inputemail">Bandwidth</label>
+                        <input type="text" id="inputemail" class="form-control" placeholder="Bandwidth" name="bandwidth">
                       </div>
                     </div>
                   </div>
@@ -235,13 +235,28 @@ if(isset($_GET['id']))
 $(document).ready(function(){
     $('#input-email').on('blur',function(){
       var input=$(this);
-      var re=/^[A-Za-z]+$/;
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      if(z1.length==kk)
+      {
+        $('#input-email').addClass('is-valid');
+        $('#input-email').removeClass('is-invalid');
+      }
+      else{
+        $('#input-email').addClass('is-invalid');
+        $('#input-email').removeClass('is-valid');
+      }
+      var input=$(this).val;
+      var re=/^\w+$/;
+      var reh=/^[0-9]*$/;
       
       
       var k=re.test(input.val());
-      if(k)
+      var k1=reh.test(input.val());
+      if((k)===(!k1))
       {
-
+//
         // alert("correct");
         $('#input-email').addClass('is-valid');
         $('#input-email').removeClass('is-invalid');
@@ -253,20 +268,43 @@ $(document).ready(function(){
         
       }
     });
-});
-$(document).ready(function(){
+
     $('#input-address').on('blur',function(){
       var input=$(this);
-      var re=/^\s*-?[0-9]{1,15}\s*$/;
-      
-      
-      var k=re.test(input.val());
-      if(k)
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      if(z1.length==kk)
       {
-
+        $('#input-address').addClass('is-valid');
+        $('#input-address').removeClass('is-invalid');
+      }
+      else{
+        $('#input-address').addClass('is-invalid');
+        $('#input-address').removeClass('is-valid');
+      }
+      // var re=/^\s*-?[0-9]{1,15}\s*$/;
+      var rhe=/[0-9]+(\.[0-9]+)?$/;
+      
+      // var k=re.test(input.val());
+      var k1=rhe.test(input.val());
+      if(k1)
+      {
+       if(kk<=15){
+        if(z1.length==kk){
         // alert("correct");
         $('#input-address').addClass('is-valid');
         $('#input-address').removeClass('is-invalid');
+        }
+        else{
+          $('#input-address').addClass('is-invalid');
+        $('#input-address').removeClass('is-valid');
+        }
+       }
+       else{
+        $('#input-address').addClass('is-invalid');
+        $('#input-address').removeClass('is-valid');
+       }
       }
       else{
         // alert("incorrect");
@@ -274,43 +312,43 @@ $(document).ready(function(){
         $('#input-address').removeClass('is-valid');
         
       }
-    });
-});
-$(document).ready(function(){
-    $('#input-address').on('blur',function(){
-      var input=$(this);
-      var re=/^\s*-?[0-9]{1,15}\s*$/;
-      
-      
-      var k=re.test(input.val());
-      if(k)
-      {
-
-        // alert("correct");
-        $('#input-address').addClass('is-valid');
-        $('#input-address').removeClass('is-invalid');
-      }
-      else{
-        // alert("incorrect");
-        $('#input-address').addClass('is-invalid');
-        $('#input-address').removeClass('is-valid');
-        
-      }
-    });
-});
-$(document).ready(function(){
+    });  
     $('#input-city').on('blur',function(){
       var input=$(this);
-      var re=/^\s*-?[0-9]{1,15}\s*$/;
-      
-      
-      var k=re.test(input.val());
-      if(k)
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      if(z1.length==kk)
       {
-
+        $('#input-city').addClass('is-valid');
+        $('#input-city').removeClass('is-invalid');
+      }
+      else{
+        $('#input-city').addClass('is-invalid');
+        $('#input-city').removeClass('is-valid');
+      }
+      // var re=/^\s*-?[0-9]{1,15}\s*$/;
+      var rhe=/[0-9]+(\.[0-9]+)?$/;
+      
+      // var k=re.test(input.val());
+      var k1=rhe.test(input.val());
+      if(k1)
+      {
+       if(kk<=15){
+        if(z1.length==kk){
         // alert("correct");
         $('#input-city').addClass('is-valid');
         $('#input-city').removeClass('is-invalid');
+        }
+        else{
+          $('#input-city').addClass('is-invalid');
+        $('#input-city').removeClass('is-valid');
+        }
+       }
+       else{
+        $('#input-city').addClass('is-invalid');
+        $('#input-city').removeClass('is-valid');
+       }
       }
       else{
         // alert("incorrect");
@@ -319,10 +357,159 @@ $(document).ready(function(){
         
       }
     });
+
+//     $('#input-country').on('blur',function(){
+//       var input=$(this).val;
+//     // 
+//       var len=input.length;
+//       for(i=0;i<(len);i++)
+//       {
+//         // var s1=s.charAt(i);
+//         // var s2=s.charAt(i+1);
+//         var a=input.charCodeAt(0);
+//           console.log(a);
+       
+//         if((a>=65&&a<=90)||(a=='45'||a=='35'))
+//         {
+//           $('#input-country').addClass('is-valid');
+//         $('#input-country').removeClass('is-invalid');
+//         }
+//         else
+//         {
+//           $('#input-country').addClass('is-invalid');
+//           $('#input-country').removeClass('is-valid');
+//         }
+
+//       }
+
+// });
+$('#input-username').on('blur',function(){
+      var input=$(this);
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      if(z1.length==kk)
+      {
+        $('#input-username').addClass('is-valid');
+        $('#input-username').removeClass('is-invalid');
+      }
+      else{
+        $('#input-username').addClass('is-invalid');
+        $('#input-username').removeClass('is-valid');
+      }
+      // var re=/^\s*-?[0-9]{1,15}\s*$/;
+      var rhe=/[0-9]+(\.[0-9]+)?$/;
+      
+      // var k=re.test(input.val());
+      var k1=rhe.test(input.val());
+      if(k1)
+      {
+       if(kk<=5){
+        if(z1.length==kk){
+        // alert("correct");
+        $('#input-username').addClass('is-valid');
+        $('#input-username').removeClass('is-invalid');
+        }
+        else{
+          $('#input-username').addClass('is-invalid');
+        $('#input-username').removeClass('is-valid');
+        }
+       }
+       else{
+        $('#input-username').addClass('is-invalid');
+        $('#input-username').removeClass('is-valid');
+       }
+      }
+      else{
+        // alert("incorrect");
+        $('#input-username').addClass('is-invalid');
+        $('#input-username').removeClass('is-valid');
+        
+      }
+    });  
+    $('#inputemail').on('blur',function(){
+      var input=$(this);
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      if(z1.length==kk)
+      {
+        $('#inputemail').addClass('is-valid');
+        $('#inputemail').removeClass('is-invalid');
+      }
+      else{
+        $('#inputemail').addClass('is-invalid');
+        $('#inputemail').removeClass('is-valid');
+      }
+    });
+    $('#input-country').on('blur',function(){
+      var input=$(this);
+      var z=$(this).val();
+     var kk= z.length;
+      var z1= z.trim();
+      for(i=0;i<=(kk-1);i++)
+      {
+      //  var k5=input.indexOf('#');
+      var z=$(this).val();
+        var k4=z.charCodeAt('i');
+        var k5=z.charCodeAt('i+1');
+          if(k4=k5='35')
+         {
+      alert("aaa");
+      // $('#input-country').addClass('is-invalid');
+      //   $('#input-country').removeClass('is-valid');
+      }
+      elseif(k4=k5='45')
+      {
+        alert("aaa");
+        $('#input-country').addClass('is-invalid');
+        $('#input-country').removeClass('is-valid');
+      }
+      else
+      {
+
+        $('#input-country').addClass('is-valid');
+        $('#input-country').removeClass('is-invalid');
+      }
+      }
+    });
 });
+</script>
+    //   for(i=0;i<=(kk-1);i++)
+    //   {
+    //     var k4=z.charCodeAt('i');
+    //     var k5=z.charCodeAt('i+1');
+    //     if(k4=k5='45')
+    // {
+    //   $('#input-country').addClass('is-invalid');
+    //     $('#input-country').removeClass('is-valid');
+    //   }
+
+    //   }
+    //   for(i=0;i<=(kk-1);i++)
+    //   {
+    //     var k4=z.charCodeAt('i');
+    //     var k5=z.charCodeAt('i+1');
+    //     console.log(k4);
+    //     console.log(k5);
+    //     if((k4>'65'&& k4<='97')|| (k4>='97'&&k4<='129')||(k5>'65'&& k5<='97')|| (k5>='97'&&k5<='129')||(k4='35'&&k5!='35')||(k4='45'&& k5!='45'))
+    // {
+    //   $('#input-country').addClass('is-valid');
+    //     $('#input-country').removeClass('is-invalid');
+    //   }
+
+    //   }
+    
+    
+    
+     
+      
+     
+ 
+
   
     
- </script>
+
  
   
 

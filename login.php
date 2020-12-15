@@ -1,7 +1,7 @@
 <?php
-include('User.php');
+// include('User.php');
 include('header.php');
-include ('Dbconnection.php');
+// include ('Dbconnection.php');
  if(isset($_POST['submit'])){
  	$username =$_POST['email'];
  	echo $username;

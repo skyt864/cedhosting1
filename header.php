@@ -102,13 +102,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									 $Dbcon=new Dbconnection();
 									 $sql=$User->navHost($Dbcon->conn);
 
-									 foreach($sql as $key=>$value)
-									//   echo $value['prod_name'];
-									{?>
-							             		
-										<li><a href=<?php $value['link'];?>><?php echo $value['prod_name'];?></li>
-										
-									<?php } ?>
+									
+									 // $show_category = $product->show_category($db->connect(), '!=');
+									 foreach ($sql as $key => $value) {
+										 echo "<li><a href='catpage.php?id=".$value['html']."'>".$value['prod_name']."</a></li>";
+									 }
+								 ?>
 									
 									</ul>
 									
@@ -123,7 +122,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<li><a href="blog.php">Blog</a></li>
 								<li><a href="contact.php">Contact</a></li>
 								<li><a href="#"><i class="fa fa-shopping-cart design"  aria-hidden="true"></i></a></li>
-									<li><a href="login.php">Login</a></li>
+									<!-- <li><a href="login.php">Login</a></li> -->
+									<?php
+									if(isset($_SESSION['LOGGEDIN']))
+									{
+									echo'<li><a href="logout.php">Logout</a></li>';
+									}
+									else {
+										echo'<li><a href="login.php">Login</a></li>';
+									}
+									?>
 									
 							</ul>
 									  
