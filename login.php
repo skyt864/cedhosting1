@@ -1,5 +1,6 @@
 <?php
-// include('User.php');
+// session_start();
+//  include('User.php');
 include('header.php');
 // include ('Dbconnection.php');
  if(isset($_POST['submit'])){

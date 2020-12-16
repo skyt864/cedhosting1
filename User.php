@@ -3,7 +3,10 @@
 
 
 
- 	session_start();
+ 
+
+	session_start();
+  
   
 
 Class User {
@@ -141,7 +144,7 @@ function categorytable($name,$plink,$conn)
 	function navHost($conn)
 	{
 
-		$sql1="SELECT * FROM `tbl_product` WHERE `prod_name`!='Hosting'";
+		$sql1="SELECT * FROM `tbl_product` WHERE `prod_parent_id`='1'";
 		$result=$conn->query($sql1);
 		
 		return $result;
@@ -282,18 +285,104 @@ $row=array();
 			}
                 
 }
-    function showw($id,$conn)
+//     function showw($id,$conn)
+//    {
+// 	$row=array();
+// //	SELECT COUNT(column_name)
+// //FROM table_name
+// //WHERE condition;
+// 	$sql="SELECT COUNT(`prod_name`) FROM `tbl_product` WHERE `prod_parent_id`='$id'";
+// 	$result=$conn->query($sql);
+// 	while($data=mysqli_fetch_assoc($result))
+// 	{
+// 		$row=$data['COUNT(`prod_name`)'];
+// 		$b=$row;
+// 		echo $b;
+  
+// 	}
+// 	for(i=1;i<'$b';i++)
+// 	{
+
+// 	}
+//     $sql="SELECT `html` FROM `tbl_product` WHERE `id`='$id'";
+//     $result=$conn->query($sql);
+//     while($data=mysqli_fetch_assoc($result))
+//   {
+// 	  $row[]=$data;
+// 	  $b=$data['html'];
+// 	  return $b;
+
+//   }
+//    }
+   function showwdata($id,$conn)
    {
 	$row=array();
-  $sql="SELECT `html` FROM `tbl_product` WHERE `id`='$id'";
-  $result=$conn->query($sql);
-  while($data=mysqli_fetch_assoc($result))
-  {
-	  $row[]=$data;
-	  $b=$data['html'];
-	  return $b;
+	// echo $id;
+	// echo "aaaa";
+	// echo $id;
+	$sql3= "SELECT * FROM `tbl_product` INNER JOIN `tbl_product_description` ON `tbl_product`.id=`tbl_product_description`.prod_id WHERE `tbl_product`.`prod_parent_id`='$id'" ;
+					   
+		$result=$conn->query($sql3);
+		// print_r($result);
+		while($data=mysqli_fetch_assoc($result))
+		{
+			$row[]=$data;
+		}
+  
+  return $row;
+		
+   }
+   function addtocart($id,$conn)
+   {
+	$row=array();
+	$sql="SELECT `prod_id` FROM `tbl_product_description` WHERE `id`='$id'";
+	$result=$conn->query($sql);
+	while($data=mysqli_fetch_assoc($result))
+	{
+		$row=$data['prod_id'];
+		$b=$row;
+	}
+	$sql= "SELECT * FROM `tbl_product`
+	INNER JOIN `tbl_product_description`
+    ON `tbl_product`.id=`tbl_product_description`.prod_id WHERE `tbl_product_description`.`prod_id`='$b'"
+   }
+   function mydata($id,$conn)
+   {
+	   $row=array();
+	   $sql="SELECT * FROM `tbl_product` WHERE `prod_parent_id`='$id'";
+	   $result=$conn->query($sql);
+	   while($data=mysqli_fetch_assoc($result))
+	   {
+		   $row[]=$data;
+	   }
+	   return $row;
+   }
+   function mydataa($id,$conn)
+   {
 
-  }
+	$sql3="SELECT `id` FROM `tbl_product` WHERE `prod_parent_id`='$id'";
+	$result=$conn->query($sql3);
+	while($data=mysqli_fetch_assoc($result))
+	{
+		$row=$data['id'];
+		  $a=$row;
+		 
+		// echo $row;  //171
+	}
+	//   echo $a;
+	
+	// echo $row;
+     $row=array();
+	$sql="SELECT * FROM `tbl_product`
+	INNER JOIN `tbl_product_description`
+    ON `tbl_product`.id=`tbl_product_description`.prod_id ";
+    $result=$conn->query($sql);
+   while($data=mysqli_fetch_assoc($result))
+   {
+   $row[]=$data;
+   }
+
+  return $row;
    }
 }
 

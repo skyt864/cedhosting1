@@ -475,31 +475,6 @@ $('#input-username').on('blur',function(){
     });
 });
 </script>
-    //   for(i=0;i<=(kk-1);i++)
-    //   {
-    //     var k4=z.charCodeAt('i');
-    //     var k5=z.charCodeAt('i+1');
-    //     if(k4=k5='45')
-    // {
-    //   $('#input-country').addClass('is-invalid');
-    //     $('#input-country').removeClass('is-valid');
-    //   }
-
-    //   }
-    //   for(i=0;i<=(kk-1);i++)
-    //   {
-    //     var k4=z.charCodeAt('i');
-    //     var k5=z.charCodeAt('i+1');
-    //     console.log(k4);
-    //     console.log(k5);
-    //     if((k4>'65'&& k4<='97')|| (k4>='97'&&k4<='129')||(k5>'65'&& k5<='97')|| (k5>='97'&&k5<='129')||(k4='35'&&k5!='35')||(k4='45'&& k5!='45'))
-    // {
-    //   $('#input-country').addClass('is-valid');
-    //     $('#input-country').removeClass('is-invalid');
-    //   }
-
-    //   }
-    
     
     
      

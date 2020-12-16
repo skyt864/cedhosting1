@@ -1,4 +1,7 @@
-<?php include('User.php');
+<?php
+
+// session_start();
+include('User.php');
        include('Dbconnection.php');
 ?>
 
@@ -105,7 +108,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									
 									 // $show_category = $product->show_category($db->connect(), '!=');
 									 foreach ($sql as $key => $value) {
-										 echo "<li><a href='catpage.php?id=".$value['html']."'>".$value['prod_name']."</a></li>";
+										 echo "<li><a href='catpage.php?id=".$value['id']."'>".$value['prod_name']."</a></li>";
 									 }
 								 ?>
 									
